@@ -34,8 +34,11 @@ export class LoginComponent {
           if (r.body !== null && r.headers.get("Authorization") !== null)
           {
             const temp = r.body as Profile;
+            let auth = r.headers.get("Authorization");
+            if (auth == null)
+              auth = "";
             sessionStorage.clear();
-            sessionStorage.setItem("Authorization", r.headers.get("Authorization"));
+            sessionStorage.setItem("Authorization", auth);
             sessionStorage.setItem("profile", JSON.stringify(temp));
             this.router.navigate(['/home']);
           } else {
